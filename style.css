@@ -1,0 +1,203 @@
+:root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #2a2a2a;
+    --text: #ffffff;
+    --accent: #00ff66;
+}
+
+[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f5f5f5;
+    --border: #cccccc;
+    --text: #000000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.logo-text {
+    border: 1px solid var(--text);
+    padding: 4px 6px;
+    font-size: 16px;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+.led {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+    margin-bottom: 4px;
+    animation: blink 2s infinite steps(1);
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+button {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#theme-toggle {
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    transition: 120ms linear;
+}
+
+#theme-toggle:hover {
+    background-color: var(--accent);
+    color: #000000;
+    border-color: var(--accent);
+}
+
+main {
+    flex: 1;
+    padding: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+}
+
+.tool-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 48px 24px;
+    font-size: 20px;
+    letter-spacing: 1px;
+    transition: all 120ms linear;
+    text-align: center;
+}
+
+.tool-card:hover {
+    background-color: var(--accent);
+    color: #000000;
+    border-color: var(--accent);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+#tool-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#btn-back {
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    transition: 120ms linear;
+}
+
+#btn-back:hover {
+    background-color: var(--accent);
+    color: #000000;
+    border-color: var(--accent);
+}
+
+.drop-zone {
+    border: 1px dashed var(--border);
+    background-color: var(--surface);
+    border-radius: 2px;
+    padding: 64px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: 120ms linear;
+}
+
+.drop-zone:hover, .drop-zone.dragover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+#progress-container, #result-container {
+    text-align: center;
+    padding: 64px 24px;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+}
+
+#ascii-progress {
+    font-size: 20px;
+    margin-bottom: 16px;
+    white-space: pre;
+    color: var(--accent);
+}
+
+.success-msg {
+    color: var(--accent);
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 32px;
+    white-space: pre-wrap;
+}
+
+#btn-download {
+    border: 1px solid var(--border);
+    padding: 16px 32px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    transition: 120ms linear;
+}
+
+#btn-download:hover {
+    background-color: var(--accent);
+    color: #000000;
+    border-color: var(--accent);
+}
