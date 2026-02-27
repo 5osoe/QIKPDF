@@ -1,0 +1,10 @@
+{
+  "about": "QIKPDF is a minimal browser-based PDF tool.\n• 100% local processing\n• No uploads, no servers\n• No file storage\n• No tracking\n• Fast, private and secure\nYour files never leave your device.",
+  "tools": {
+    "imageToPdf": "Create a PDF from images.\n• Reorder images\n• Preview before export\n• Maintain original quality\nSimple and fast conversion.",
+    "merge": "Combine multiple PDF files.\n• Reorder files\n• Preview pages\n• Merge in chosen order\nCreate one organized document.",
+    "split": "Split a PDF into separate files.\n• Extract all pages\n• Or define custom ranges\n• Preview first & last page\nFlexible document separation.",
+    "rotate": "Rotate PDF pages.\n• 90° left\n• 90° right\n• 180° flip\nRotation preserved during export.",
+    "pdfToImages": "Convert PDF pages to images.\n• View all pages\n• Select specific pages\n• Search by page number\n• Preview before export\nExtract only what you need."
+  }
+}
