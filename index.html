@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QIKPDF — Minimal Browser PDF Tool</title>
+    
+    <meta name="description" content="QIKPDF is a fast, browser-based PDF utility. Convert images to PDF, merge PDFs, split, rotate and export in original quality. 100% local processing.">
+    <meta name="keywords" content="QIKPDF, PDF tool, merge PDF, split PDF, images to PDF, PDF to images, browser PDF utility">
+    <meta name="author" content="QIKPDF">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="QIKPDF — Fast Browser PDF Utility">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qikpdf.vercel.app/">
+    <meta property="og:image" content="https://qikpdf.vercel.app/preview.jpg">
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#0a0a0a">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <div id="intro-screen">
+        <h1>QIKPDF</h1>
+    </div>
+
+    <header>
+        <div class="logo-container" id="logo-home">
+            <div class="logo-text">QIK<br>PDF</div>
+            <div class="led"></div>
+        </div>
+        <button class="btn-outline" id="btn-about">ABOUT</button>
+    </header>
+
+    <main id="main-view">
+        <div class="grid">
+            <button class="tool-card" data-tool="pdf2img">
+                <svg class="pixel-icon" viewBox="0 0 24 24" shape-rendering="crispEdges" fill="currentColor">
+                    <path d="M6 2h8l4 4v16H6V2zm2 2v14h8V8h-4V4H8zm6 14v-2h-4v2h4zm-4-4v-2h4v2h-4z"/>
+                </svg>
+                <span>PDF&rarr;IMG</span>
+            </button>
+            <button class="tool-card" data-tool="img2pdf">
+                <svg class="pixel-icon" viewBox="0 0 24 24" shape-rendering="crispEdges" fill="currentColor">
+                    <path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 8l2-2 2 2 4-4 2 2v4H8v-2z"/>
+                </svg>
+                <span>IMG&rarr;PDF</span>
+            </button>
+            <button class="tool-card" data-tool="merge">
+                <svg class="pixel-icon" viewBox="0 0 24 24" shape-rendering="crispEdges" fill="currentColor">
+                    <path d="M4 4h6v16H4V4zm8 4h8v12h-8V8zm-2 2H6v8h4v-8zm8 2h-4v6h4v-6z"/>
+                </svg>
+                <span>MERGE</span>
+            </button>
+            <button class="tool-card" data-tool="split">
+                <svg class="pixel-icon" viewBox="0 0 24 24" shape-rendering="crispEdges" fill="currentColor">
+                    <path d="M8 2h8v20H8V2zm2 2v16h4V4h-4zM4 11h2v2H4v-2zm14 0h2v2h-2v-2z"/>
+                </svg>
+                <span>SPLIT</span>
+            </button>
+            <button class="tool-card" data-tool="rotate">
+                <svg class="pixel-icon" viewBox="0 0 24 24" shape-rendering="crispEdges" fill="currentColor">
+                    <path d="M12 2v4H8v12h12V6h-4V2h-4zm2 6h4v8h-8V8h4zm-2 2v2H8v-2h4zm0-6h2v2h-2V4z"/>
+                </svg>
+                <span>ROTATE</span>
+            </button>
+        </div>
+    </main>
+
+    <main id="tool-view" class="hidden">
+        <div class="tool-header">
+            <h2 id="tool-title" class="title-with-icon">
+                <span id="tool-title-icon"></span>
+                <span id="tool-title-text">TOOL</span>
+            </h2>
+            <div class="header-controls">
+                <button class="btn-outline" id="btn-info">INFO</button>
+                <button class="btn-outline btn-close-tool" id="btn-reset-tool" title="Close/Reset">X</button>
+                <button class="btn-outline" id="btn-back">&lt; BACK</button>
+            </div>
+        </div>
+
+        <div id="drop-zone" class="drop-zone">
+            <span id="drop-text">DROP FILE(S) HERE<br>OR CLICK TO SELECT</span>
+            <input type="file" id="file-input" hidden>
+        </div>
+
+        <div id="pdf2img-ui" class="hidden">
+            <div class="pdf-toolbar">
+                <div class="toolbar-group">
+                    <button class="btn-outline" id="btn-select-all">SELECT ALL</button>
+                    <button class="btn-outline" id="btn-select-none">NONE</button>
+                </div>
+                <div class="toolbar-group">
+                    <span>JUMP TO:</span>
+                    <input type="number" id="page-jump-input" class="mini-input" min="1" placeholder="#">
+                </div>
+            </div>
+            <div id="pdf-grid" class="pdf-grid-container"></div>
+        </div>
+
+        <div id="rotate-ui" class="hidden">
+            <div class="file-label">SELECTED: <span id="rotate-filename"></span></div>
+            <div class="rotate-grid">
+                <button class="btn-outline rotate-btn" data-angle="-90">
+                    <span>&#8634; LEFT</span>
+                    <small>90&deg; CCW</small>
+                </button>
+                <button class="btn-outline rotate-btn" data-angle="180">
+                    <span>&#8644; FLIP</span>
+                    <small>180&deg;</small>
+                </button>
+                <button class="btn-outline rotate-btn" data-angle="90">
+                    <span>&#8635; RIGHT</span>
+                    <small>90&deg; CW</small>
+                </button>
+            </div>
+        </div>
+
+        <div id="split-ui" class="hidden">
+            <div class="file-label">
+                FILE: <span id="split-filename"></span><br>
+                PAGES: <span id="split-pagecount" class="accent-text">...</span>
+            </div>
+            <div class="split-modes">
+                <label class="radio-container">
+                    <input type="radio" name="split-mode" value="all" checked>
+                    <span class="radio-checkmark"></span>
+                    ALL (SEPARATE FILES)
+                </label>
+                <label class="radio-container">
+                    <input type="radio" name="split-mode" value="custom">
+                    <span class="radio-checkmark"></span>
+                    CUSTOM RANGES
+                </label>
+            </div>
+            <div id="split-custom-options" class="hidden">
+                <div class="input-group">
+                    <label>NUMBER OF OUTPUT FILES:</label>
+                    <input type="number" id="split-range-count" min="1" max="20" value="1" class="input-num">
+                </div>
+                <div id="split-ranges-container"></div>
+            </div>
+        </div>
+
+        <div id="reorder-container" class="hidden"></div>
+
+        <div id="progress-container" class="hidden">
+            <div id="ascii-progress">[░░░░░░░░░░░░░░░░░░░░]</div>
+            <div id="status-text">PROCESSING...</div>
+        </div>
+
+        <!-- UNIFIED RESULT CONTAINER -->
+        <div id="result-container" class="hidden">
+            <div class="result-header">
+                <span class="success-icon">✓</span> SUCCESS
+            </div>
+            <div id="result-preview-content">
+                <!-- PDF Preview -->
+                <canvas id="result-preview-canvas" class="hidden"></canvas>
+                <!-- Image Grid (PDF->IMG) -->
+                <div id="result-grid" class="hidden"></div>
+                <!-- File List (Split) -->
+                <div id="result-list" class="hidden"></div>
+                <!-- ZIP Info Footer -->
+                <div id="result-zip-info" class="hidden">
+                    <div class="zip-icon">ZIP</div>
+                    <div id="result-zip-name">archive.zip</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="global-actions" class="action-footer hidden">
+        <button class="btn-primary" id="btn-process">PROCESS PDF</button>
+        <button class="btn-outline hidden" id="btn-edit-result">EDIT</button>
+        <button class="btn-outline hidden" id="btn-reprocess">REPROCESS</button>
+        <button class="btn-primary hidden" id="btn-download-action">DOWNLOAD</button>
+    </div>
+
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">INFO</h3>
+                <button class="btn-modal-close" id="btn-modal-close">X</button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="export-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>EXPORT SETTINGS</h3>
+                <button class="btn-modal-close" id="btn-export-close">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group-col">
+                    <label>FILENAME (OPTIONAL)</label>
+                    <input type="text" id="export-filename" class="input-text" placeholder="Result Name">
+                </div>
+                
+                <div class="input-group-col" id="export-size-group">
+                    <label>PAGE SIZE</label>
+                    <select id="export-size" class="input-select">
+                        <option value="default" selected>ORIGINAL (NO CHANGE)</option>
+                        <option value="a4">A4 (ISO)</option>
+                        <option value="a3">A3 (ISO)</option>
+                        <option value="a5">A5 (ISO)</option>
+                        <option value="a0">A0 (ISO)</option>
+                        <option value="a1">A1 (ISO)</option>
+                        <option value="a2">A2 (ISO)</option>
+                        <option value="letter">LETTER (US)</option>
+                        <option value="legal">LEGAL (US)</option>
+                        <option value="custom">CUSTOM SIZE...</option>
+                    </select>
+                </div>
+
+                <div class="input-group-col hidden" id="export-rotation-group">
+                    <label>DOCUMENT ROTATION</label>
+                    <select id="export-rotation" class="input-select">
+                        <option value="0" selected>NONE (0&deg;)</option>
+                        <option value="90">90&deg; CW (RIGHT)</option>
+                        <option value="-90">90&deg; CCW (LEFT)</option>
+                        <option value="180">180&deg;</option>
+                    </select>
+                </div>
+                
+                <div id="custom-size-inputs" class="input-row hidden">
+                    <div class="flex-1">
+                        <label>WIDTH</label>
+                        <input type="number" id="custom-width" class="input-text" placeholder="W">
+                    </div>
+                    <div class="flex-1">
+                        <label>HEIGHT</label>
+                        <input type="number" id="custom-height" class="input-text" placeholder="H">
+                    </div>
+                    <div class="flex-1">
+                        <label>UNIT</label>
+                        <select id="custom-unit" class="input-select">
+                            <option value="mm">mm</option>
+                            <option value="cm">cm</option>
+                            <option value="inch">in</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-outline flex-1" id="btn-export-cancel">CANCEL</button>
+                    <button class="btn-primary flex-1" id="btn-export-confirm">CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="img-preview-modal" class="modal hidden">
+        <div class="modal-content preview-content">
+            <div class="modal-header">
+                <h3 id="img-preview-title">PREVIEW</h3>
+                <button class="btn-modal-close" id="btn-img-preview-close">X</button>
+            </div>
+            <div class="modal-body preview-body">
+                <img id="img-preview-element" class="preview-img" src="" alt="Preview">
+            </div>
+        </div>
+    </div>
+
+    <div id="pdf-preview-modal" class="modal hidden">
+        <div class="modal-content preview-content">
+            <div class="modal-header">
+                <h3 id="pdf-preview-title">PDF PREVIEW</h3>
+                <button class="btn-modal-close" id="btn-pdf-preview-close">X</button>
+            </div>
+            <div class="modal-body preview-body">
+                <div class="pdf-controls">
+                    <button class="btn-outline" id="btn-pdf-prev">&lt; PREV</button>
+                    <span>PAGE <span id="pdf-page-current">0</span> / <span id="pdf-page-total">0</span></span>
+                    <button class="btn-outline" id="btn-pdf-next">NEXT &gt;</button>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="pdf-preview-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
