@@ -1,0 +1,19 @@
+{
+  "about": "QikPDF : PDF File Management\n\n• 100% local browser processing\n• No uploads, no servers involved\n• No file storage\n• No tracking\n• Fast, private and secure\n\nAll operations are performed directly on your device. Your files never leave your browser environment.",
+
+  "tools": {
+    "pdfInfo": "View detailed information about a PDF file.\n• File size and page count\n• Page dimensions (A4, A5, custom sizes)\n• Metadata preview\n• Clean structured overview\n\nQuickly inspect your document before editing or exporting.",
+
+    "metadata": "View and manage PDF metadata.\n• Title\n• Author\n• Subject\n• Keywords\n• Document properties\n\nInspect embedded document information in a clean and readable format.",
+
+    "imageToPdf": "Create a PDF document from images.\n• Reorder images before export\n• Preview images during edit mode\n• Maintain original image quality\n• Choose page size during export\n\nConvert multiple images into a clean, organized PDF file.",
+
+    "pdfToImages": "Extract images from PDF pages.\n• View all pages in edit mode\n• Search pages by number\n• Select specific pages to export\n• Rename output files before processing\n\nExtract only the pages you need as high-quality images.",
+
+    "merge": "Combine multiple PDF files into one document.\n• Reorder files before processing\n• Preview individual files in edit mode\n• Maintain original document quality\n• Export as a single organized PDF\n\nMerge documents in the exact order you choose.",
+
+    "split": "Split a PDF into separate files.\n• Extract all pages automatically\n• Or define custom page ranges\n• Rename each output file\n• Preview first and last pages in edit mode\n\nCreate multiple documents from one source file with full control.",
+
+    "rotate": "Rotate PDF pages instantly.\n• 90° clockwise\n• 90° counter-clockwise\n• 180° rotation\n• Rotation preserved during export\n\nApply rotation cleanly without affecting document quality."
+  }
+}
