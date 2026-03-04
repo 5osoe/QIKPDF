@@ -20,16 +20,6 @@ const ROUTES = {
 document.addEventListener("DOMContentLoaded", () => {
     initTheme(); 
     updateUIText(); 
-    
-    // Slight delay to allow intro animation to be seen
-    setTimeout(() => {
-        const intro = document.getElementById("intro-screen");
-        if (intro) {
-            intro.style.opacity = '0';
-            setTimeout(() => intro.remove(), 500);
-        }
-    }, 800);
-
     setupGlobalModals();
     
     // --- STEP 3: CALL ROUTER ON LOAD ---
@@ -931,6 +921,9 @@ function resetToolUI() {
     DOM.metadataUi.classList.add('hidden');
     DOM.globalActions.classList.add('hidden');
     DOM.fileInput.value = '';
+    // Clear any file validation error banners
+    const valErr = document.getElementById('file-val-error');
+    if (valErr) valErr.remove();
     
     if(DOM.led) DOM.led.classList.remove('animating');
     UrlManager.revokeAll();
@@ -1153,7 +1146,7 @@ async function initPdfToImgUI(file) {
                     observer.unobserve(card);
                 }
             });
-        }, { root: DOM.pdfGrid, threshold: 0.1 });
+        }, { root: DOM.pdfGrid, threshold: 0.05 });
         const cards = document.querySelectorAll('.page-card');
         cards.forEach(card => state.pdfImgObserver.observe(card));
     } catch (e) { alert("Failed to load PDF."); }
@@ -1306,6 +1299,39 @@ DOM.pdfImgSearch.addEventListener('input', debounce((e) => {
 
 function handleFiles(files) {
     if (processingLock) return;
+
+    // --- SECTION 6: EARLY FILE VALIDATION ---
+    // Check immediately after selection, before any parsing or preview.
+    const HARD_LIMIT_MB = SAFETY_ENGINE.isMobile() ? 400 : 1000;
+    const oversized = Array.from(files).filter(f => f.size / (1024 * 1024) > HARD_LIMIT_MB);
+    if (oversized.length > 0) {
+        // Remove any previous validation error
+        const prev = document.getElementById('file-val-error');
+        if (prev) prev.remove();
+
+        const errEl = document.createElement('div');
+        errEl.id = 'file-val-error';
+        errEl.className = 'file-validation-error';
+        errEl.innerHTML = `
+            <span class="val-icon">⛔</span>
+            <div class="val-msg">
+                <strong>FILE TOO LARGE</strong>
+                ${oversized.map(f => `${f.name} (${(f.size/1048576).toFixed(1)} MB)`).join(', ')}
+                exceeds the ${HARD_LIMIT_MB} MB safe processing limit for this device.
+                Please use a smaller file to prevent browser crashes.
+            </div>
+        `;
+        // Insert above the drop zone
+        DOM.dropZone.insertAdjacentElement('afterend', errEl);
+        DOM.fileInput.value = '';
+        // Auto-remove after 6 seconds
+        setTimeout(() => { if (errEl.parentNode) errEl.remove(); }, 6000);
+        return; // Abort — no preview, no parsing
+    }
+    // Remove any lingering validation error on valid selection
+    const prev = document.getElementById('file-val-error');
+    if (prev) prev.remove();
+    // --- END EARLY VALIDATION ---
     
     const acceptHeader = toolConfig[state.currentTool].accept;
     const fileArr = Array.from(files).filter(file => {

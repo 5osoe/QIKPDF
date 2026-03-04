@@ -27,14 +27,6 @@
 </head>
 <body>
 
-    <!-- Intro Screen -->
-    <div id="intro-screen">
-        <div class="intro-content">
-            <div class="intro-logo">QIK<span style="color:var(--accent)">.</span>PDF</div>
-            <div class="intro-loading">INITIALIZING SYSTEM...</div>
-        </div>
-    </div>
-
     <!-- MAIN APP CONTAINER -->
     <div id="app-root">
 
@@ -43,7 +35,7 @@
                 <div class="led"></div>
                 <div class="logo-text">QIK PDF <span class="version">v2.0</span></div>
             </div>
-            <div class="header-actions">
+            <div class="header-actions" style="display:flex;flex-direction:row;align-items:center;gap:8px;">
                 <button class="icon-btn" id="btn-theme" title="Switch Theme">
                     <!-- Sun -->
                     <svg class="theme-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -176,7 +168,7 @@
                         <input type="number" id="pdf2img-search" class="mini-input search-input" min="1" placeholder="SEARCH PAGE">
                     </div>
                 </div>
-                <div id="pdf-grid" class="pdf-grid-container"></div>
+                <div id="pdf-grid" class="pdf-list-container"></div>
             </div>
 
             <div id="rotate-ui" class="hidden tool-panel">
