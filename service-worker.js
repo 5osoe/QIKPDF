@@ -5,6 +5,13 @@ const ASSETS =[
   '/style.css',
   '/app.js',
   '/manifest.json',
+  '/tool-pdfinfo.js',
+  '/tool-pdf2img.js',
+  '/tool-img2pdf.js',
+  '/tool-rotate.js',
+  '/tool-merge.js',
+  '/tool-metadata.js',
+  '/tool-split.js',
   '/icon-192.png',
   '/icon-512.png',
   '/content.json'

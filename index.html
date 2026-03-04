@@ -27,6 +27,9 @@
 </head>
 <body>
 
+    <!-- Theme Transition Overlay -->
+    <div id="theme-overlay"></div>
+
     <!-- MAIN APP CONTAINER -->
     <div id="app-root">
 
@@ -214,6 +217,12 @@
                     </div>
                     <div id="split-ranges-container"></div>
                 </div>
+                <div id="split-all-names" class="hidden">
+                    <div class="split-all-header">
+                        <span>PAGE NAMES — <span id="split-all-count" class="accent-text"></span></span>
+                    </div>
+                    <div id="split-all-list" class="split-all-list"></div>
+                </div>
             </div>
 
             <div id="reorder-container" class="hidden tool-panel"></div>
@@ -326,6 +335,14 @@
         </div>
     </div>
 
+    <!-- Tool modules — loaded before app.js -->
+    <script src="tool-pdfinfo.js"></script>
+    <script src="tool-metadata.js"></script>
+    <script src="tool-pdf2img.js"></script>
+    <script src="tool-img2pdf.js"></script>
+    <script src="tool-merge.js"></script>
+    <script src="tool-split.js"></script>
+    <script src="tool-rotate.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
