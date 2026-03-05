@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>QikPDF : إدارة ملفات PDF</title>
-    <meta name="description" content="أداة إدارة PDF آمنة ومحلية بالكامل. دمج، تقسيم، تدوير، تحويل إلى صور، وعرض البيانات الوصفية مباشرة في متصفحك. لا رفع للملفات، خصوصية تامة 100%.">
-    <meta name="keywords" content="PDF, دمج PDF, تقسيم PDF, تحويل PDF, تدوير PDF, إدارة PDF, أداة PDF مجانية, QikPDF">
+    <title>QikPDF : PDF File Management</title>
+    <meta name="description" content="Secure, local PDF management tool. Merge, split, rotate, convert to images, and view metadata directly in your browser. No uploads, 100% private.">
+    <meta name="keywords" content="PDF, merge PDF, split PDF, rotate PDF, PDF to image, PDF tools, free PDF editor, QikPDF">
     <meta name="author" content="QNest">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#F3F4F6">
     <link rel="canonical" href="https://qikpdf.vercel.app/">
 
-    <meta property="og:title" content="QikPDF - إدارة ملفات PDF">
-    <meta property="og:description" content="أداة PDF مجانية وآمنة، معالجة محلية 100% دون رفع ملفاتك لأي خادم.">
+    <meta property="og:title" content="QikPDF - PDF File Management">
+    <meta property="og:description" content="Free and secure PDF tool. 100% local processing, no file uploads to any server.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://qikpdf.vercel.app/">
     <meta property="og:image" content="https://qikpdf.vercel.app/preview.jpg">
-    <meta property="og:locale" content="ar_SA">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="QikPDF - إدارة ملفات PDF">
-    <meta name="twitter:description" content="أداة PDF مجانية وآمنة، معالجة محلية 100%.">
+    <meta name="twitter:title" content="QikPDF - PDF File Management">
+    <meta name="twitter:description" content="Free and secure PDF tool. 100% local processing.">
     <meta name="twitter:image" content="https://qikpdf.vercel.app/preview.jpg">
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -45,21 +43,20 @@
                 <div class="led"></div>
                 <div class="logo-text">QIK PDF <span class="version">v2.0</span></div>
             </div>
-            <div class="header-actions">
-                <button class="icon-btn" id="btn-theme" title="تبديل الثيم">
+            <div class="header-actions" style="display:flex;flex-direction:row;align-items:center;gap:8px;">
+                <button class="icon-btn" id="btn-theme" title="Switch Theme">
                     <svg class="theme-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="theme-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
-                <button class="icon-btn" id="btn-about" title="حول التطبيق">
+                <button class="icon-btn" id="btn-about" title="System Info">
                     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </button>
             </div>
         </header>
 
         <main id="main-view">
-            <div class="grid-label">الأدوات المتاحة</div>
+            <div class="grid-label">AVAILABLE MODULES</div>
             <div class="grid">
-                <!-- tool-cards are LTR always - enforced via CSS -->
                 <button class="tool-card" data-tool="pdfinfo">
                     <div class="card-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
@@ -113,7 +110,7 @@
 
         <main id="tool-view" class="hidden">
             <div class="tool-header">
-                <button class="icon-btn btn-back" id="btn-back" title="رجوع">
+                <button class="icon-btn btn-back" id="btn-back" title="Go Back">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 </button>
 
@@ -122,22 +119,22 @@
                     <span id="tool-title-text">TOOL</span>
                 </h2>
 
-                <button class="icon-btn" id="btn-info" title="تفاصيل الأداة">
+                <button class="icon-btn" id="btn-info" title="Details">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
                 </button>
             </div>
 
             <div id="drop-zone" class="drop-zone">
                 <div class="drop-icon-graphic"></div>
-                <span id="drop-text">أسقط الملف(ات) هنا<br>أو انقر للاختيار</span>
+                <span id="drop-text">DROP FILE(S) HERE<br>OR CLICK TO SELECT</span>
                 <input type="file" id="file-input" hidden>
             </div>
 
-            <div id="pdf-info-ui" class="hidden tool-panel tool-ltr">
+            <div id="pdf-info-ui" class="hidden tool-panel">
                 <div id="pdf-info-content"></div>
             </div>
 
-            <div id="metadata-ui" class="hidden tool-panel tool-ltr">
+            <div id="metadata-ui" class="hidden tool-panel">
                 <div class="metadata-form">
                     <div class="input-group-col">
                         <label>TITLE</label>
@@ -165,7 +162,7 @@
                 </div>
             </div>
 
-            <div id="pdf2img-ui" class="hidden tool-panel tool-ltr">
+            <div id="pdf2img-ui" class="hidden tool-panel">
                 <div class="pdf-toolbar">
                     <div class="toolbar-group">
                         <button class="btn-sm" id="btn-select-all">SELECT ALL</button>
@@ -178,7 +175,7 @@
                 <div id="pdf-grid" class="pdf-list-container"></div>
             </div>
 
-            <div id="rotate-ui" class="hidden tool-panel tool-ltr">
+            <div id="rotate-ui" class="hidden tool-panel">
                 <div class="file-label">TARGET: <span id="rotate-filename" class="mono-highlight"></span></div>
                 <div class="rotate-grid">
                     <button class="btn-outline rotate-btn" data-angle="-90">
@@ -196,7 +193,7 @@
                 </div>
             </div>
 
-            <div id="split-ui" class="hidden tool-panel tool-ltr">
+            <div id="split-ui" class="hidden tool-panel">
                 <div class="file-label">
                     FILE: <span id="split-filename" class="mono-highlight"></span>
                     <br>
@@ -216,7 +213,7 @@
                 </div>
                 <div id="split-custom-options" class="hidden">
                     <div class="input-group">
-                        <label>OUTPUT FILES:</label>
+                        <label>NUMBER OF OUTPUT FILES:</label>
                         <input type="number" id="split-range-count" min="1" max="20" value="1" class="input-num">
                     </div>
                     <div id="split-ranges-container"></div>
@@ -229,7 +226,7 @@
                 </div>
             </div>
 
-            <div id="reorder-container" class="hidden tool-panel tool-ltr"></div>
+            <div id="reorder-container" class="hidden tool-panel"></div>
 
             <div id="progress-container" class="hidden">
                 <div class="progress-box">
@@ -242,15 +239,15 @@
         </main>
 
         <div id="global-actions" class="action-footer hidden">
-            <button class="btn-primary" id="btn-process">معالجة PDF</button>
-            <button class="btn-primary hidden" id="btn-download-action">تنزيل الملف</button>
-            <button class="btn-outline hidden" id="btn-clear-result">مسح</button>
+            <button class="btn-primary" id="btn-process">PROCESS PDF</button>
+            <button class="btn-primary hidden" id="btn-download-action">DOWNLOAD</button>
+            <button class="btn-outline hidden" id="btn-clear-result">CLEAR</button>
         </div>
 
         <div id="info-modal" class="modal hidden" data-modal>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 id="modal-title">معلومات</h3>
+                    <h3 id="modal-title">INFO</h3>
                     <button class="btn-modal-close" id="btn-modal-close">✕</button>
                 </div>
                 <div id="modal-body" class="modal-body"></div>
@@ -260,67 +257,67 @@
         <div id="export-modal" class="modal hidden" data-modal>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3>إعدادات التصدير</h3>
+                    <h3>EXPORT CONFIG</h3>
                     <button class="btn-modal-close" id="btn-export-close">✕</button>
                 </div>
                 <div class="modal-body">
                     <div class="input-group-col">
-                        <label>اسم الملف (اختياري)</label>
-                        <input type="text" id="export-filename" class="input-text" placeholder="الاسم الافتراضي">
+                        <label>FILENAME (OPTIONAL)</label>
+                        <input type="text" id="export-filename" class="input-text" placeholder="Default Name">
                     </div>
 
                     <div class="input-group-col" id="export-size-group">
-                        <label>حجم الصفحة</label>
+                        <label>PAGE SIZE</label>
                         <div class="select-wrapper">
                             <select id="export-size" class="input-select">
-                                <option value="default" selected>الأصلي (بدون تغيير)</option>
+                                <option value="default" selected>ORIGINAL (NO CHANGE)</option>
                                 <option value="a4">A4 (ISO)</option>
                                 <option value="a3">A3 (ISO)</option>
                                 <option value="a5">A5 (ISO)</option>
                                 <option value="a0">A0 (ISO)</option>
                                 <option value="a1">A1 (ISO)</option>
                                 <option value="a2">A2 (ISO)</option>
-                                <option value="letter">Letter (US)</option>
-                                <option value="legal">Legal (US)</option>
-                                <option value="custom">حجم مخصص...</option>
+                                <option value="letter">LETTER (US)</option>
+                                <option value="legal">LEGAL (US)</option>
+                                <option value="custom">CUSTOM SIZE...</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="input-group-col hidden" id="export-rotation-group">
-                        <label>تدوير المستند</label>
+                        <label>DOCUMENT ROTATION</label>
                         <div class="select-wrapper">
                             <select id="export-rotation" class="input-select">
-                                <option value="0" selected>بدون (0°)</option>
-                                <option value="90">90° مع عقارب الساعة</option>
-                                <option value="-90">90° عكس عقارب الساعة</option>
-                                <option value="180">180°</option>
+                                <option value="0" selected>NONE (0&deg;)</option>
+                                <option value="90">90&deg; CW</option>
+                                <option value="-90">90&deg; CCW</option>
+                                <option value="180">180&deg;</option>
                             </select>
                         </div>
                     </div>
 
                     <div id="custom-size-inputs" class="input-row hidden">
                         <div class="flex-1">
-                            <label>العرض</label>
+                            <label>WIDTH</label>
                             <input type="number" id="custom-width" class="input-text" placeholder="W">
                         </div>
                         <div class="flex-1">
-                            <label>الارتفاع</label>
+                            <label>HEIGHT</label>
                             <input type="number" id="custom-height" class="input-text" placeholder="H">
                         </div>
                         <div class="flex-1">
-                            <label>الوحدة</label>
+                            <label>UNIT</label>
                             <select id="custom-unit" class="input-select">
-                                <option value="mm">ملم</option>
-                                <option value="cm">سم</option>
-                                <option value="inch">بوصة</option>
+                                <option value="mm">mm</option>
+                                <option value="cm">cm</option>
+                                <option value="inch">in</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="modal-actions">
-                        <button class="btn-outline flex-1" id="btn-export-cancel">إلغاء</button>
-                        <button class="btn-primary flex-1" id="btn-export-confirm">تأكيد</button>
+                        <button class="btn-outline flex-1" id="btn-export-cancel">CANCEL</button>
+                        <button class="btn-primary flex-1" id="btn-export-confirm">CONFIRM</button>
                     </div>
                 </div>
             </div>
@@ -336,7 +333,7 @@
     </div>
 
     <footer class="site-footer">
-        <span>صُنع بواسطة <a href="https://qnest.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-link">QNest</a></span>
+        <span>Created by <a href="https://qnest.vercel.app" target="_blank" rel="noopener noreferrer" class="footer-link">QNest</a></span>
     </footer>
 
     <script src="tool-pdfinfo.js"></script>

@@ -1098,153 +1098,19 @@ select:focus-visible {
     border-bottom-color: var(--accent);
 }
 
-/* ============================================================
-   ARABIC UI — Global RTL
-   ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap');
-
-[dir="rtl"] body {
-    font-family: 'Cairo', 'IBM Plex Mono', monospace;
-}
-
-[dir="rtl"] .logo-text,
-[dir="rtl"] .version,
-[dir="rtl"] #ascii-progress,
-[dir="rtl"] .mono-highlight,
-[dir="rtl"] .item-idx,
-[dir="rtl"] .page-info,
-[dir="rtl"] .page-num,
-[dir="rtl"] .btn-sm,
-[dir="rtl"] .btn-outline,
-[dir="rtl"] .btn-primary {
-    font-family: 'IBM Plex Mono', monospace;
-}
-
-[dir="rtl"] .grid-label,
-[dir="rtl"] #drop-text,
-[dir="rtl"] .success-text h4,
-[dir="rtl"] .success-text p,
-[dir="rtl"] .modal-header h3,
-[dir="rtl"] .modal-body label,
-[dir="rtl"] .file-validation-error {
-    font-family: 'Cairo', 'IBM Plex Mono', monospace;
-    letter-spacing: 0;
-}
-
-[dir="rtl"] #ascii-progress {
-    direction: ltr;
-    unicode-bidi: embed;
-}
-
-[dir="rtl"] .header-actions {
-    flex-direction: row;
-}
-
-[dir="rtl"] .tool-header {
-    flex-direction: row-reverse;
-}
-
-[dir="rtl"] .modal-header {
-    flex-direction: row-reverse;
-}
-
-[dir="rtl"] .modal-actions {
-    flex-direction: row-reverse;
-}
-
-[dir="rtl"] .input-row {
-    flex-direction: row-reverse;
-}
-
-[dir="rtl"] .action-footer {
-    direction: rtl;
-}
-
-/* ============================================================
-   TOOL-LTR — Forces English tools to stay 100% LTR
-   No RTL rule overrides this block
-   ============================================================ */
-.tool-ltr,
-.tool-ltr * {
-    direction: ltr !important;
-    text-align: left !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    letter-spacing: normal !important;
-    unicode-bidi: embed !important;
-}
-
-.tool-ltr input,
-.tool-ltr textarea,
-.tool-ltr select {
-    text-align: left !important;
-}
-
-.tool-ltr .reorder-item,
-.tool-ltr .reorder-list,
-.tool-ltr .pdf-toolbar,
-.tool-ltr .toolbar-group,
-.tool-ltr .rotate-grid,
-.tool-ltr .split-modes,
-.tool-ltr .range-inputs,
-.tool-ltr .split-all-item,
-.tool-ltr .range-block,
-.tool-ltr .page-card,
-.tool-ltr .info-item,
-.tool-ltr .info-grid {
-    direction: ltr !important;
-    flex-direction: unset !important;
-}
-
-/* Tool cards on home grid — always LTR layout */
-.tool-card {
-    direction: ltr !important;
-    text-align: left !important;
-}
-
-.tool-card span {
-    font-family: 'IBM Plex Mono', monospace !important;
-    letter-spacing: 1px !important;
-}
-
-/* Tool title in header — always LTR */
-#tool-title,
-#tool-title-text,
-#tool-title-icon {
-    direction: ltr !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-}
-
-/* Progress bar — always LTR */
-#progress-container,
-#ascii-progress,
-#status-text {
-    direction: ltr !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    text-align: center !important;
-}
-
-/* Preview modal — always LTR */
-.preview-modal,
-.preview-modal * {
-    direction: ltr !important;
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
 .site-footer {
     text-align: center;
     padding: 20px 24px 32px;
     font-size: 12px;
     color: var(--text-muted);
-    font-family: 'Cairo', 'IBM Plex Mono', monospace;
+    letter-spacing: 0.5px;
+    font-family: var(--font-main);
 }
 
 .footer-link {
     color: var(--accent);
     text-decoration: none;
     font-weight: 700;
-    font-family: 'IBM Plex Mono', monospace;
     transition: color 0.2s ease;
 }
 
