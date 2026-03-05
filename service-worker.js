@@ -1,61 +1,26 @@
-const CACHE_NAME = 'qikpdf-ar-cache-v1';
+const CACHE_NAME = 'qikpdf-cache-v5';
 
 const ASSETS = [
-  '/',
-  '/style.css',
-  '/app.js',
-  '/manifest.json',
-  '/tool-pdfinfo.js',
-  '/tool-pdf2img.js',
-  '/tool-img2pdf.js',
-  '/tool-rotate.js',
-  '/tool-merge.js',
-  '/tool-metadata.js',
-  '/tool-split.js',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/content.json'
+  '/', '/style.css', '/app.js', '/manifest.json',
+  '/tool-pdfinfo.js', '/tool-pdf2img.js', '/tool-img2pdf.js',
+  '/tool-rotate.js',  '/tool-merge.js',   '/tool-metadata.js',
+  '/tool-split.js',   '/icon-192.png',    '/icon-512.png', '/content.json'
 ];
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
-  );
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys
-          .filter(key => key !== CACHE_NAME)
-          .map(key => caches.delete(key))
-      );
-    })
-  );
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))));
   self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.url.includes('preview.jpg')) return;
-
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put('/', copy));
-          return response;
-        })
-        .catch(() => caches.match('/'))
-    );
+self.addEventListener('fetch', e => {
+  if (e.request.url.includes('preview.jpg')) return;
+  if (e.request.mode === 'navigate') {
+    e.respondWith(fetch(e.request).then(r => { caches.open(CACHE_NAME).then(c => c.put('/', r.clone())); return r; }).catch(() => caches.match('/')));
     return;
   }
-
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
-  );
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
