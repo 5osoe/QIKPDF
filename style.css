@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
 
-/* ============================================================
-   SECTION 2 — GLOBAL COLOR SYSTEM
-   Green as primary accent; red reserved for errors/danger only.
-   ============================================================ */
 :root {
     --bg:           #EAEAEA;
     --surface:      #FFFFFF;
@@ -1096,4 +1092,221 @@ select:focus-visible {
 .split-all-item .page-name-input:focus {
     outline: none;
     border-bottom-color: var(--accent);
+}
+
+/* ============================================================
+   RTL & ARABIC LANGUAGE SUPPORT
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap');
+
+[lang="ar"] body,
+[dir="rtl"] body {
+    font-family: 'Cairo', 'IBM Plex Mono', monospace;
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .action-footer {
+    direction: rtl;
+}
+
+[dir="rtl"] .tool-header {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .logo-container {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .header-actions {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .reorder-item {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .item-name {
+    text-align: right;
+}
+
+[dir="rtl"] .page-card {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .page-check {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+[dir="rtl"] .btn-remove {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+[dir="rtl"] .split-modes {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .pdf-toolbar {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .toolbar-group {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-header {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .modal-actions {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .info-item {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .info-item span {
+    text-align: left;
+}
+
+[dir="rtl"] .input-row {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .range-inputs {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .split-all-item {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .rotate-grid {
+    direction: rtl;
+}
+
+[dir="rtl"] .select-wrapper::after {
+    right: auto;
+    left: 12px;
+}
+
+[dir="rtl"] .grid-label {
+    text-align: right;
+}
+
+[dir="rtl"] .tool-card {
+    align-items: flex-end;
+    text-align: right;
+}
+
+[dir="rtl"] .tool-card::before {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .range-previews {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .file-validation-error {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+[dir="rtl"] .success-box {
+    direction: rtl;
+}
+
+[dir="rtl"] .progress-box {
+    direction: rtl;
+}
+
+[dir="rtl"] .radio-container {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .preview-nav {
+    direction: ltr;
+}
+
+[dir="rtl"] #ascii-progress {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+/* ============================================================
+   SITE FOOTER — QNest SIGNATURE
+   ============================================================ */
+.site-footer {
+    text-align: center;
+    padding: 20px 24px 32px;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.3px;
+    font-family: 'Cairo', 'IBM Plex Mono', monospace;
+}
+
+.footer-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ============================================================
+   ARABIC FONT OVERRIDE FOR UI ELEMENTS
+   ============================================================ */
+[dir="rtl"] .btn-primary,
+[dir="rtl"] .btn-outline,
+[dir="rtl"] .btn-sm,
+[dir="rtl"] label,
+[dir="rtl"] .grid-label,
+[dir="rtl"] .file-label,
+[dir="rtl"] .tool-card span,
+[dir="rtl"] .logo-text,
+[dir="rtl"] #drop-text,
+[dir="rtl"] #status-text,
+[dir="rtl"] .modal-header h3,
+[dir="rtl"] .success-text h4,
+[dir="rtl"] .success-text p {
+    font-family: 'Cairo', 'IBM Plex Mono', monospace;
+    letter-spacing: 0;
+}
+
+[dir="rtl"] .logo-text {
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: -0.5px;
+}
+
+[dir="rtl"] .version {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+[dir="rtl"] #ascii-progress,
+[dir="rtl"] .mono-highlight,
+[dir="rtl"] .item-idx,
+[dir="rtl"] .page-info,
+[dir="rtl"] .page-num {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ============================================================
+   RESPONSIVE ARABIC ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 600px) {
+    [dir="rtl"] .tool-header {
+        flex-direction: row-reverse;
+    }
+
+    [dir="rtl"] .grid {
+        direction: rtl;
+    }
 }

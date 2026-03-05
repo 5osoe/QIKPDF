@@ -1,6 +1,6 @@
-const CACHE_NAME = 'qikpdf-cache-v4';
+const CACHE_NAME = 'qikpdf-ar-cache-v1';
 
-const ASSETS =[
+const ASSETS = [
   '/',
   '/style.css',
   '/app.js',
@@ -17,7 +17,6 @@ const ASSETS =[
   '/content.json'
 ];
 
-// Install
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -26,7 +25,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activate
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => {
@@ -40,23 +38,15 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch
 self.addEventListener('fetch', event => {
+  if (event.request.url.includes('preview.jpg')) return;
 
-  // 🚫 Never cache preview image (for social bots)
-  if (event.request.url.includes('preview.jpg')) {
-    return;
-  }
-
-  // 🌐 Network First for navigation (HTML)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then(response => {
           const copy = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put('/', copy);
-          });
+          caches.open(CACHE_NAME).then(cache => cache.put('/', copy));
           return response;
         })
         .catch(() => caches.match('/'))
@@ -64,7 +54,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // 📦 Cache First for static assets
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))

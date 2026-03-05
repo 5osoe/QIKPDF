@@ -1,24 +1,20 @@
-// ============================================================
-// TOOL: PDF INFO
-// ============================================================
-
 async function initPdfInfoUI(file) {
     DOM.pdfInfoUi.classList.remove('hidden');
-    DOM.globalActions.classList.add('hidden'); 
+    DOM.globalActions.classList.add('hidden');
     DOM.pdfInfoContent.innerHTML = '<div class="loading-spinner">...</div>';
 
     try {
         const arrayBuffer = await file.arrayBuffer();
-        const loadingTask = pdfjsLib.getDocument({data: arrayBuffer});
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
         const doc = await loadingTask.promise;
         const metadata = await doc.getMetadata();
         const info = metadata.info || {};
         const page = await doc.getPage(1);
-        const viewport = page.getViewport({scale: 1});
-        const widthPt = viewport.width;
+        const viewport = page.getViewport({ scale: 1 });
+        const widthPt  = viewport.width;
         const heightPt = viewport.height;
 
-        let html = `
+        DOM.pdfInfoContent.innerHTML = `
             <div class="info-panel">
                 <div class="info-header-block">
                     <div class="info-filename" id="info-filename-el"></div>
@@ -36,12 +32,11 @@ async function initPdfInfoUI(file) {
                 </div>
             </div>
         `;
-        DOM.pdfInfoContent.innerHTML = html;
-        
+
         document.getElementById('info-filename-el').textContent = file.name;
         document.getElementById('info-filesize-el').textContent = formatFileSize(file.size);
-        document.getElementById('info-pages-el').textContent = doc.numPages;
-        document.getElementById('info-dim-el').textContent = formatPageSize(widthPt, heightPt);
+        document.getElementById('info-pages-el').textContent    = doc.numPages;
+        document.getElementById('info-dim-el').textContent      = formatPageSize(widthPt, heightPt);
 
         const metaGrid = document.getElementById('meta-grid-el');
         const appendMeta = (label, val) => {
@@ -55,19 +50,20 @@ async function initPdfInfoUI(file) {
             div.appendChild(spn);
             metaGrid.appendChild(div);
         };
-        appendMeta('metaTitle', info.Title);
-        appendMeta('metaAuthor', info.Author);
-        appendMeta('metaSubject', info.Subject);
+
+        appendMeta('metaTitle',    info.Title);
+        appendMeta('metaAuthor',   info.Author);
+        appendMeta('metaSubject',  info.Subject);
         appendMeta('metaKeywords', info.Keywords);
-        appendMeta('metaCreator', info.Creator);
+        appendMeta('metaCreator',  info.Creator);
 
         document.getElementById('btn-view-pdf-info').addEventListener('click', () => {
-             if (!processingLock) openEditPreview(file, 'pdf-full');
+            if (!processingLock) openEditPreview(file, 'pdf-full');
         });
 
         page.cleanup();
         doc.destroy();
-    } catch(e) {
+    } catch (e) {
         DOM.pdfInfoContent.innerHTML = '';
         const errDiv = document.createElement('div');
         errDiv.className = 'error-text';

@@ -1,7 +1,9 @@
 {
-    "name": "QikPDF : PDF File Management",
+    "name": "QikPDF : إدارة ملفات PDF",
     "short_name": "QikPDF",
-    "description": "Fast, secure, browser-based PDF file management tool. 100% local processing with no uploads or tracking.",
+    "description": "أداة سريعة وآمنة لإدارة ملفات PDF في المتصفح. معالجة محلية 100% بدون رفع أو تتبع.",
+    "lang": "ar",
+    "dir": "rtl",
     "start_url": "./index.html",
     "display": "standalone",
     "orientation": "portrait",
