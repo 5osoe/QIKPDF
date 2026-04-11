@@ -9,7 +9,8 @@ const ROUTES = {
   "/pdf2img":  "pdf2img",
   "/img2pdf":  "img2pdf",
   "/pdfinfo":  "pdfinfo",
-  "/metadata": "metadata"
+  "/metadata": "metadata",
+  "/pagenumber": "pagenumber"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -88,7 +89,8 @@ const UI_STRINGS = {
     iso_A3:       "A3",
     iso_A5:       "A5",
     iso_Letter:   "Letter",
-    iso_Legal:    "Legal"
+    iso_Legal:    "Legal",
+    pagenumber:   "PAGE NUMBERS"
 };
 
 const DOM = {
@@ -324,7 +326,8 @@ let state = {
     sourceFile:           null,
     pdfImgDoc:            null,
     pdfImgSelectedPages:  new Set(),
-    pdfImgObserver:       null
+    pdfImgObserver:       null,
+    pageNumberFile:       null
 };
 
 let previewState = { doc: null, page: 1, total: 0, type: null };
@@ -345,7 +348,8 @@ const toolConfig = {
     'img2pdf':  { title: 'IMG \u2192 PDF',    accept: 'image/png, image/jpeg', multiple: true  },
     'merge':    { title: 'MERGE',             accept: 'application/pdf',       multiple: true  },
     'split':    { title: 'SPLIT',             accept: 'application/pdf',       multiple: false },
-    'rotate':   { title: 'ROTATE',            accept: 'application/pdf',       multiple: false }
+    'rotate':   { title: 'ROTATE',            accept: 'application/pdf',       multiple: false },
+    'pagenumber':{ title: 'PAGE NUMBERS',      accept: 'application/pdf',       multiple: false }
 };
 
 const yieldToMain = () => new Promise(resolve => setTimeout(resolve, 0));
@@ -673,6 +677,7 @@ DOM.btnProcess.addEventListener('click', async () => {
             DOM.splitUi.classList.add('hidden');
             DOM.pdf2ImgUi.classList.add('hidden');
             DOM.metadataUi.classList.add('hidden');
+            const pnUi = document.getElementById('pagenumber-ui'); if (pnUi) pnUi.classList.add('hidden');
             DOM.resultContainer.classList.add('hidden');
             DOM.progressContainer.classList.remove('hidden');
             await processFiles();
@@ -758,6 +763,7 @@ function resetToolUI() {
     DOM.pdfInfoUi.classList.add('hidden');
     DOM.metadataUi.classList.add('hidden');
     DOM.globalActions.classList.add('hidden');
+    resetPageNumberState();
     DOM.fileInput.value = '';
     const valErr = document.getElementById('file-val-error');
     if (valErr) valErr.remove();
@@ -915,6 +921,7 @@ function handleFiles(files) {
         return;
     }
     if (state.currentTool === 'pdf2img') { initPdfToImgUI(fileArr[0]); return; }
+    if (state.currentTool === 'pagenumber') { state.pageNumberFile = fileArr[0]; initPageNumberUI(fileArr[0]); return; }
 }
 
 function handleError(e) {
@@ -1027,7 +1034,7 @@ function setProgress(percent, msg = "PROCESSING...") {
 async function processFiles() {
     const tool = state.currentTool;
     let files  = [];
-    if (tool === 'pdf2img' || tool === 'split' || tool === 'rotate' || tool === 'metadata') {
+    if (tool === 'pdf2img' || tool === 'split' || tool === 'rotate' || tool === 'metadata' || tool === 'pagenumber') {
         files = [state.sourceFile];
     } else {
         files = tool === 'img2pdf' ? state.imgFiles : state.mergeFiles;
@@ -1039,6 +1046,7 @@ async function processFiles() {
     else if (tool === 'split')    await execSplit(files[0]);
     else if (tool === 'rotate')   await execRotate(files[0]);
     else if (tool === 'metadata') await execMetadata(files[0]);
+    else if (tool === 'pagenumber') await execPageNumber(files[0]);
     DOM.progressContainer.classList.add('hidden');
     DOM.resultContainer.classList.remove('hidden');
     UrlManager.revokeAll();

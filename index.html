@@ -105,6 +105,13 @@
                     </div>
                     <span>ROTATE</span>
                 </button>
+
+                <button class="tool-card" data-tool="pagenumber">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h5M8 16h3"/><circle cx="18" cy="18" r="0" fill="currentColor"/><text x="13" y="19" font-size="5" fill="currentColor" stroke="none" font-family="monospace">1</text></svg>
+                    </div>
+                    <span>PAGE NUMBERS</span>
+                </button>
             </div>
         </main>
 
@@ -226,6 +233,42 @@
                 </div>
             </div>
 
+            <!-- PAGE NUMBERING TOOL PANEL -->
+            <div id="pagenumber-ui" class="hidden tool-panel pn-panel">
+                <div class="file-label pn-file-bar">
+                    FILE: <span id="pn-filename" class="mono-highlight"></span>
+                    &nbsp;&middot;&nbsp;
+                    <span id="pn-pagecount" class="accent-text"></span>
+                </div>
+                <div id="pn-single-page-section" class="pn-section hidden">
+                    <div class="pn-section-title">&#9889; SINGLE-PAGE MODE</div>
+                    <p class="pn-hint">Your PDF has only 1 page. Duplicate it to generate a multi-page numbered document.</p>
+                    <div class="pn-row">
+                        <div class="pn-field">
+                            <label>DUPLICATE PAGE &times;</label>
+                            <input type="number" id="pn-duplicate-count" class="input-text" value="1" min="1" max="2000" step="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="pn-section">
+                    <div class="pn-section-header">
+                        <div class="pn-section-title">NUMBERING LAYERS</div>
+                        <button class="btn-sm pn-btn-add-layer" id="pn-btn-add-layer">+ ADD LAYER</button>
+                    </div>
+                    <div id="pn-layers-list" class="pn-layers-list">
+                        <div class="pn-no-layers">No layers yet. Click &ldquo;ADD LAYER&rdquo; to begin.</div>
+                    </div>
+                </div>
+                <div class="pn-format-ref">
+                    <span class="pn-format-ref-title">FORMAT TOKENS:</span>
+                    <code>{n}</code> number &nbsp;&middot;&nbsp;
+                    <code>{total}</code> total &nbsp;&middot;&nbsp;
+                    <code>roman</code> / <code>ROMAN</code> &nbsp;&middot;&nbsp;
+                    <code>alpha</code> a,b,c&hellip; &nbsp;&middot;&nbsp;
+                    <code>001</code> zero-padded
+                </div>
+            </div>
+
             <div id="reorder-container" class="hidden tool-panel"></div>
 
             <div id="progress-container" class="hidden">
@@ -343,6 +386,7 @@
     <script src="tool-merge.js"></script>
     <script src="tool-split.js"></script>
     <script src="tool-rotate.js"></script>
+    <script src="tool-pagenumber.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

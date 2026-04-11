@@ -1118,3 +1118,249 @@ select:focus-visible {
     color: var(--accent-hover);
     text-decoration: underline;
 }
+
+/* ============================================================
+   PAGE NUMBERING TOOL — .pn-* classes
+   Added as a modular layer; does not touch existing styles.
+   ============================================================ */
+
+/* Panel wrapper */
+.pn-panel { padding: 16px 20px; }
+
+/* File info bar */
+.pn-file-bar { margin-bottom: 16px; font-size: 12px; }
+
+/* Section block */
+.pn-section { margin-bottom: 20px; }
+
+.pn-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.pn-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.pn-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+/* Add Layer button accent */
+.pn-btn-add-layer {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    font-weight: 700;
+}
+.pn-btn-add-layer:hover {
+    background: var(--accent-soft) !important;
+}
+
+/* Layers list container */
+.pn-layers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Empty state */
+.pn-no-layers {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 24px 20px;
+    text-align: center;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    letter-spacing: 0.3px;
+}
+
+/* Individual layer card */
+.pn-layer-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pn-layer-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px -6px rgba(26, 122, 60, 0.15);
+}
+
+/* Disabled (toggled off) layer */
+.pn-layer-disabled {
+    opacity: 0.45;
+}
+.pn-layer-disabled .pn-layer-header {
+    background: var(--surface-alt);
+}
+
+/* Layer card header bar */
+.pn-layer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+}
+
+.pn-layer-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0;
+}
+
+.pn-layer-index {
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    font-size: 11px;
+}
+
+.pn-layer-format-preview {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.pn-layer-pos-badge {
+    font-size: 10px;
+    color: var(--text-muted);
+    background: var(--bg);
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+    border: 1px solid var(--border);
+}
+
+/* Layer action buttons (toggle / remove) */
+.pn-layer-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.pn-btn-toggle {
+    min-width: 38px;
+    text-align: center;
+}
+
+.pn-btn-remove {
+    color: var(--danger) !important;
+    border-color: var(--danger) !important;
+}
+.pn-btn-remove:hover {
+    background: rgba(215, 25, 32, 0.08) !important;
+}
+
+/* Layer card body — form fields */
+.pn-layer-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Flexible row of fields */
+.pn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+/* Generic field wrapper */
+.pn-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 90px;
+}
+
+/* Field size variants */
+.pn-field-sm  { flex: 0 0 90px;  min-width: 0; }
+.pn-field-lg  { flex: 3;         min-width: 160px; }
+.pn-field-color { flex: 0 0 58px; }
+
+/* Color swatch input */
+.pn-color-input {
+    width: 100%;
+    height: 38px;
+    padding: 3px 4px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+.pn-color-input:hover { border-color: var(--accent); }
+
+/* Range targeting sub-row */
+.pn-range-inputs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+/* Format reference footer */
+.pn-format-ref {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--border);
+    margin-top: 4px;
+    line-height: 1.8;
+    flex-wrap: wrap;
+}
+
+.pn-format-ref-title {
+    font-weight: 700;
+    margin-right: 6px;
+    color: var(--text-secondary);
+}
+
+.pn-format-ref code {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: var(--font-main);
+    color: var(--accent);
+}
+
+/* Utility: hidden row */
+.pn-custom-pos.hidden,
+.pn-range-inputs.hidden { display: none; }
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .pn-field-sm  { flex: 0 0 80px; }
+    .pn-field-lg  { min-width: 100%; }
+    .pn-layer-pos-badge { display: none; }
+}
